@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Richmee - App Download</title>
+    <meta name="description" content="Download Richmee for iOS and Android.">
+    <link rel="icon" href="images/richmee_logo.webp" type="image/webp">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #202124;
+            background: #f5f6fa;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .download-page {
+            width: 100%;
+            max-width: 430px;
+            min-height: min(760px, calc(100vh - 48px));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .download-card {
+            width: 100%;
+            padding: 46px 28px 34px;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 30px;
+            box-shadow: 0 22px 60px rgba(35, 42, 61, 0.12);
+        }
+
+        .app-logo {
+            width: 112px;
+            height: 112px;
+            border-radius: 26px;
+            object-fit: cover;
+            box-shadow: 0 14px 32px rgba(54, 97, 255, 0.18);
+        }
+
+        h1 {
+            margin: 24px 0 8px;
+            font-size: 30px;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #111827;
+        }
+
+        .subtitle {
+            margin: 0 auto;
+            max-width: 310px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #6b7280;
+        }
+
+        .download-actions {
+            display: grid;
+            gap: 16px;
+            margin-top: 42px;
+            justify-items: center;
+        }
+
+        .store-link {
+            display: inline-flex;
+            width: min(250px, 100%);
+            border-radius: 14px;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .store-link:hover {
+            transform: translateY(-2px);
+            filter: drop-shadow(0 12px 20px rgba(17, 24, 39, 0.16));
+        }
+
+        .store-badge {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .helper-text {
+            margin: 28px auto 0;
+            max-width: 320px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+                background: #ffffff;
+            }
+
+            .download-page {
+                min-height: 100vh;
+                max-width: none;
+            }
+
+            .download-card {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="download-page" aria-labelledby="download-title">
+        <section class="download-card">
+            <img class="app-logo" src="images/richmee_logo.webp" alt="Richmee logo">
+            <h1 id="download-title">Richmee</h1>
+            <p class="subtitle" data-i18n="subtitle">Smart and simple personal finance management. Choose your device platform to download.</p>
+
+            <div class="download-actions" aria-label="Download links">
+                <a class="store-link" href="https://apps.apple.com/app/6752465398" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+                    <img class="store-badge" src="images/app_store.png" alt="Download on the App Store">
+                </a>
+                <a class="store-link" href="https://play.google.com/store/apps/details?id=com.excelsiorlab.moneytracker" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
+                    <img class="store-badge" src="images/google_play.png" alt="Get it on Google Play">
+                </a>
+            </div>
+
+            <p class="helper-text" data-i18n="helper">If the page does not open, copy the link and open it in your browser.</p>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var translations = {
+                en: {
+                    subtitle: 'Richmee-Expense&Budget Tracker, Finance Manager & Save Money',
+                    helper: 'If the page does not open, copy the link and open it in your browser.',
+                    appStoreLabel: 'Download on the App Store',
+                    googlePlayLabel: 'Get it on Google Play'
+                },
+                zh: {
+                    subtitle: '智能、简单的个人财务管理工具，选择你的设备平台开始下载。',
+                    helper: '如无法跳转，请复制链接后在浏览器中打开。',
+                    appStoreLabel: '前往 App Store 下载',
+                    googlePlayLabel: '前往 Google Play 下载'
+                }
+            };
+            var language = (navigator.language || navigator.userLanguage || 'en').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en';
+            var content = translations[language];
+
+            document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+            document.querySelectorAll('[data-i18n]').forEach(function (element) {
+                var key = element.getAttribute('data-i18n');
+                element.textContent = content[key];
+            });
+
+            var storeLinks = document.querySelectorAll('.store-link');
+            var storeBadges = document.querySelectorAll('.store-badge');
+            storeLinks[0].setAttribute('aria-label', content.appStoreLabel);
+            storeBadges[0].setAttribute('alt', content.appStoreLabel);
+            storeLinks[1].setAttribute('aria-label', content.googlePlayLabel);
+            storeBadges[1].setAttribute('alt', content.googlePlayLabel);
+        })();
+    </script>
+</body>
+
+</html>
